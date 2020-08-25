@@ -1,0 +1,8 @@
+{
+    "name": "Posts",
+    "author": "Kaitlyn Concilio",
+    "authorUrl": "https://technicalpenguins.com",
+    "moduleUrl": "https://github.com/kaitwalla/LinkCMS-Posts",
+    "register": ["\\LinkCMS\\Modules\\Posts\\Actor","Register"],
+    "version": "0.1.1"
+}

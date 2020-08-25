@@ -1,0 +1,28 @@
+{% extends '/manage/index.twig' %}
+
+{% set pageTitle = 'Posts' %}
+
+{% set bodyClass = ['posts','itemList'] %}
+
+{% block content %}
+<h1 class="t-right">Posts</h1>
+<div>
+    <a class="button success" href="/manage/posts/create">+ New post</a>
+</div>
+{% if posts %}
+    <section">
+    {% for post in posts %}
+        <div class="p-8 p-top-0 p-bottom-0 b-1 b-solid b-color-softBlack">
+            <h2><a href="/{{ post.slug }}">{{ post.title }}</a></h2>
+            <div class="display-flex j-between">
+                <div>
+                    <a href="/manage/posts/edit/{{ post.id }}">Edit</a><!--| <a href="javascript:void(0)" data-action="quickEdit" data-id="{{ post.id }}">Quick Edit</a>-->
+                </div>
+                <a class="t-color-warning" href="/manage/posts/delete/{{ post.id }}">Delete</a>
+            </div>
+            <p></p>
+        </div>
+    {% endfor %}
+    </section>
+{% endif %}
+{% endblock %}

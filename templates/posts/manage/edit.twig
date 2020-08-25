@@ -1,0 +1,50 @@
+{% extends '/content.twig' %}
+{% import '/macros/forms.twig' as forms %}
+
+{% set postTitle = "Create Post" %}
+
+{% set bodyClass = ['form content'] %}
+
+{% block content %}
+    <div class="form label-s">
+        {{ forms.text('title', 'Title') }}
+        {{ forms.text('slug', 'Slug') }}
+        <label class="sr-only" aria-live="alert" id="slugAlert"></label>
+        <div class="display-flex">
+            {{ forms.text('pubDate', 'Publish Date', false, {'disabled': true}) }} {{ forms.button('<i class="fas fa-calendar"></i>', 'm-20 p-left-10 p-right-10 p-top-0 p-bottom-0', 'datePicker', {'title': 'Click to launch date picker. You will start by selecting the month, then the year, date, hour, minute and AM/PM.'}) }}    
+            {{ forms.select('template', postTemplates, false, false, 'Post Template') }}
+        </div>
+        {{ forms.textarea('exerpt', 'Excerpt', false, {'id': 'excerpt'} )}}
+    </div>
+    <div id="contentEditor" class="hat-editor"></div>
+{% endblock %}
+
+{% block metadata %}
+    <!--{{ forms.button('<i class="fas fa-history"></i> <span>Revert</span>', 'warning inverse stack', 'revertBtn') }}    
+    <hr>-->
+    {{ forms.button('<i class="fas fa-save"></i> <span>Save</span>', 'primary inverse stack', 'draftBtn') }}
+    {{ forms.button('<i class="fas fa-eye"></i> <span>Preview Draft</span>', 'secondary inverse stack', 'previewBtn') }}
+    <hr>
+    {{ forms.button('<i class="fas fa-atlas"></i> <span>Publish</span>', 'primary inverse stack', 'publishBtn') }}
+    {{ forms.button('<i class="fas fa-eye"></i> <span>View Published</span>', 'secondary inverse stack', 'viewBtn') }}
+    <!--{{ forms.button('<i class="fas fa-eye"></i> <span>Review Published</span>', 'info inverse stack', 'reviewBtn') }}-->
+    {% if id %}
+    <hr>
+        <a href="/manage/posts/delete/{{ id }}" class="button inverse error stack"><i class="fas fa-trash-alt"></i> <span>Delete</span></a>
+    {% endif %}
+{% endblock %}
+
+{% block addscripts %}
+<script src="/js/lib/datepicker.js"></script>
+<script src="/js/lib/sortable.js"></script>
+<script src="/js/lib/dom.js"></script>
+<script src="/js/lib/ajax.js"></script>
+<script src="/js/modules/image.js"></script>
+<script src="/js/lib/hat.js"></script>
+<script src="/js/modules/content.js"></script>
+<script>
+    var content = {% if post %}{{ post|raw }}{% else %}false{% endif %};
+    let Post = new Content({apiEndpoint: '/api/posts/save', contentName: 'Post', editEndpoint: '/manage/posts/edit/'});
+    Post.start(content);
+</script>
+{% endblock %}

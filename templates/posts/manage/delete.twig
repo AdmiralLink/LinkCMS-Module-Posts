@@ -1,0 +1,29 @@
+{% extends '/base.twig' %}
+{% import '/macros/forms.twig' as forms %}
+
+{% set pageTitle = "Delete Post" %}
+
+{% set bodyClass = ['form content'] %}
+
+{% block main %}
+    <div class="box bg-white mw-600 text-center p-20 m-top-30 m-auto">
+        <p class="t-center">Are you sure you want to delete the post<br>
+        <strong>{{ post.title }}</strong>?</p>
+        <div class="t-center">
+            <form method="post">
+                {{ forms.button('<i class="fas fa-trash-alt"></i> <span>Delete</span>', 'error', 'deleteBtn') }}
+                {{ forms.button('<i class="fas fa-ban"></i> <span>Cancel</span>', '', 'cancelBtn') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block addscripts %}
+<script>
+    let cancelBtn = document.getElementById('cancelBtn');
+    cancelBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        history.back();
+    })
+</script>
+{% endblock %}
