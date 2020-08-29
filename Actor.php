@@ -9,7 +9,7 @@ use LinkCMS\Actor\Route as Router;
 class Actor {
     public static function register() {
         $core = Core::load();
-        $core->content->add_content_type('page', 'LinkCMS\Modules\Posts\Model\Post');
+        $core->content->add_content_type('post', 'LinkCMS\Modules\Posts\Model\Post');
         Display::add_template_directory(__DIR__. '/templates');
         Router::register_namespace('posts', 'manage');
         Router::add_route(['LinkCMS\Modules\Posts\Route','do_routes']);
